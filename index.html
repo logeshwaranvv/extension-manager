@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="stylesheet" href="/browser-extensions-manager-ui-main/style.css">
+  
+  <title>Frontend Mentor | Browser extensions manager UI</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+
+</head>
+<body>
+  <div class="body-container ">
+    <div class="extension-head ">
+      <div class="head-image">
+        <img src="/browser-extensions-manager-ui-main/assets/images/logo.svg" alt="">
+      </div>
+      <div class="theme-icon">
+        <button class="theme-button " onclick="toggleTheme()">
+          <img src="/browser-extensions-manager-ui-main/assets/images/icon-sun.svg" alt="light theme" class="sun-icon">
+          <img src="/browser-extensions-manager-ui-main/assets/images/icon-moon.svg" alt="dark theme" class="moon-icon">
+        </button>
+      </div>
+    </div>
+    <div class="extensions-list-container">
+      <div class="extensions-list-head">
+        <div class="extensions-list-head-name">
+          Extensions List
+        </div>
+        <div class="extensions-lsit-head-buttons">
+          <button class="all on" onclick="applyFilter('all')">
+            All
+          </button>
+          <button class="active" onclick="applyFilter('active')">
+            Active
+          </button>
+          <button class="inactive" onclick="applyFilter('inactive')">
+            Inactive
+          </button>
+        </div>
+      </div>
+      <div class="extensions-list">
+      </div>
+    </div>
+  </div>
+  <!-- <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+    Coded by <a href="#">Your Name Here</a>. -->
+  </div>
+</body>
+<script>
+  function applyFilter(parameter) {
+    const all = document.querySelector('.all');
+    const active = document.querySelector('.active');
+    const inactive = document.querySelector('.inactive');
+    all.classList.remove('on');
+    active.classList.remove('on');
+    inactive.classList.remove('on');
+    console.log(parameter);
+    if ( parameter == 'active' ) {
+      active.classList.add('on');
+      filterData(parameter);
+    };
+    if ( parameter == 'inactive') {
+      inactive.classList.add('on');
+      filterData(parameter);
+    };
+    if ( parameter == 'all' ) {
+      all.classList.add('on');
+      filterData(parameter);
+    };
+  }
+
+  function filterData(parameter){
+    const temp = extensions;
+    if ( parameter === 'active' ) {
+      data =  temp.filter( ex => ex.isActive == true);
+      console.log(data);
+    }
+    if ( parameter === 'inactive' ) {
+      data = temp.filter( ex => ex.isActive == false);
+      console.log(data);
+    }
+    if ( parameter === 'all' ) {
+      data = temp.filter( ex => ex);
+      console.log(data);
+    }
+    renderEx(data);
+  }
+
+  function renderEx(extensions) {
+    const extensionsList = document.querySelector(".extensions-list");
+    const isDarkMode = document.querySelector('.body-container').classList.contains('dark');
+
+    // Clear existing content
+    extensionsList.innerHTML = '';
+    
+    // Create elements for each extension
+    extensions.forEach(extension => {
+      extensionsList.innerHTML += `
+        <div class="extension ${isDarkMode ? 'dark' : ''}">
+          <div class="extension-details">
+            <div class="inner-details">
+              <img src="${extension.logo}" alt="${extension.name}">
+              <div class="details">
+                <p class="extension-name ${isDarkMode ? 'dark' : ''}">${extension.name}</p>
+                <p class="extension-description">${extension.description}</p>
+              </div>
+            </div>
+            <div class="extension-buttons">
+              <button class="remove-button ${isDarkMode ? 'dark' : ''}" onclick="removeEx(${extension.id})">Remove</button>
+              <button class="active-button ${extension.isActive ? 'on' : 'off'}" 
+                      onclick="toggleActive(${extension.id})">${extension.isActive ? 'On' : 'Off'}</button>
+            </div>
+          </div>
+        </div>`;
+    });
+  }
+  
+  var extensions = [];
+  
+
+function toggleTheme() {
+  const bodyContainer = document.querySelector('.body-container');
+  const extensionHead = document.querySelector('.extension-head');
+  const toggleTheme = document.querySelector('.theme-button');
+  const extensionsListHead = document.querySelector('.extensions-list-head');
+  const extensionsL = document.querySelectorAll('.extension');
+  const removeButton = document.querySelectorAll('.remove-button'); 
+  const extensionName = document.querySelectorAll('.extension-name');
+  
+  const sunIcon = document.querySelector('.sun-icon');
+  const moonIcon = document.querySelector('.moon-icon');
+
+  bodyContainer.classList.toggle('dark');
+  extensionHead.classList.toggle('dark');
+  toggleTheme.classList.toggle('dark');
+  extensionsListHead.classList.toggle('dark');
+
+  extensionsL.forEach(extension => {
+    extension.classList.toggle('dark');
+  });
+  removeButton.forEach(btn => {
+    btn.classList.toggle('dark');
+  });
+  extensionName.forEach(ext => {
+    ext.classList.toggle('dark');
+  });
+  
+  if (bodyContainer.classList.contains('dark')) {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  } else {
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const sunIcon = document.querySelector('.sun-icon');
+  const moonIcon = document.querySelector('.moon-icon');
+  const bodyContainer = document.querySelector('.body-container');
+  
+  if (bodyContainer.classList.contains('dark')) {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  } else {
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  }
+});
+
+  function toggleActive(id) {
+    extensions = extensions.map(ex => {
+      if (ex.id === id) {
+        return { ...ex, isActive: !ex.isActive };
+      }
+      return ex;
+    });
+    renderEx(extensions);
+  }
+
+  async function fetchJSON(){
+    const response = await fetch('./data.json');
+    const data = await response.json();
+    console.log(data);
+    return data;
+  }
+ 
+  function removeEx(id){
+    extensions = extensions.filter( ex => ex.id !== id );
+    console.log(extensions);
+    renderEx(extensions);
+  }
+  
+  fetchJSON().then(data => {
+    extensions = data;
+    extensions.map( ( ex, i) => ex.id = i+1);
+    renderEx(extensions);
+  });
+</script>
+</html>

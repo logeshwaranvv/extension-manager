@@ -1,0 +1,228 @@
+
+.attribution { font-size: 11px; text-align: center; }
+.attribution a { color: hsl(228, 45%, 44%); }
+@font-face {
+font-family: 'Noto Sans';
+src: url('./assets/fonts/static/NotoSans-Regular.ttf') format('truetype');
+font-weight: 400;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Noto Sans';
+src: url('./assets/fonts/static/NotoSans-Medium.ttf') format('truetype');
+font-weight: 500;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'Noto Sans';
+src: url('./assets/fonts/static/NotoSans-Bold.ttf') format('truetype');
+font-weight: 700;
+font-style: normal;
+}
+
+/* Update the body font-family */
+body {
+margin: 0;
+padding: 0%;
+font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+}
+.body-container {
+  background:  linear-gradient(180deg, #EBF2FC 0%, #EEF8F9 100%);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  font-size: 16px;
+}
+.body-container.dark {
+  background:  linear-gradient(180deg, #040918 0%, #091540 100%);
+}
+.extension-head {
+  margin: 20px;
+  padding: 20px;
+  width: 80%;
+  background-color: hsl(200, 60%, 99%);
+  height: 30px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(133, 133, 133, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.extension-head.dark {
+  background-color: hsl(226, 11%, 37%);
+}
+@media ( width <= 600px ) {
+  .extensions-list-head {
+    flex-direction: column;
+    gap: 5px;
+  }
+}
+.theme-button {
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+}
+.theme-button.dark {
+  background-color: hsl(225, 23%, 24%);
+}
+.extensions-list-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  flex: 1;
+  width: 80%;
+  padding-top: 30px;
+}
+.extensions-list-head {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 32px;
+  color: hsl(227, 75%, 14%);
+  font-weight: bold;
+  button {
+    background-color: white;
+    border: 1px solid rgb(209, 209, 209);
+    border-radius: 24px;
+    font-size: 20px;
+    color: hsl(227, 75%, 14%);
+    padding: 10px 16px;
+  }
+  margin-bottom: 20px;
+}
+.extensions-list-head.dark {
+  color: white;
+  button {
+    background-color: hsl(227, 75%, 14%);
+    border: 1px solid hsl(225, 23%, 24%);
+    color: hsl(200, 60%, 99%);
+  }
+}
+.extensions-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  gap: 20px;
+  padding: 20px;
+}
+@media ( width <= 1000px ) {
+  .extensions-list {
+    justify-content: center;
+  }
+}
+.extension {
+  max-width: 350px;
+  height: 180px;
+  background: white;
+  border-radius: 10px;
+  padding: 18px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.extension.dark {
+  background-color: black;
+  color: white;
+}
+.extension-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 20px;
+  height: 100%;
+  font-size: 16px;
+}
+.inner-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+.details {
+  p {
+    margin: 0;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+}
+.extension-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+.remove-button {
+  background-color: white;
+  padding: 8px;
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 12px;
+  font-size: 16px;
+}
+.remove-button.dark {
+  background-color: hsl(226, 11%, 37%);
+  color: white;
+  border: 1px solid rgb(81, 81, 81);
+}
+.remove-button:hover {
+  background-color: hsl(3, 77%, 44%);
+  color: white;
+}
+/* .active-button {
+  background-color: white;
+  padding: 8px;
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 12px;      
+  font-size: 16px;
+} */
+.active-button {
+background-color: white;
+padding: 8px 16px;
+border: 1px solid rgb(201, 201, 201);
+border-radius: 20px;      
+font-size: 16px;
+position: relative;
+min-width: 80px;
+transition: all 0.3s ease;
+}
+
+.active-button.on {
+background-color: #b0e7b2 !important;
+color: white !important;
+border-color: #8ac58c;
+}
+
+.active-button.off {
+background-color: #ccc !important;
+color: #666 !important;
+border-color: #ccc;
+}
+.extension-name {
+  font-size: large;
+  font-weight: bold;
+  color: hsl(227, 75%, 14%);
+}
+.extension-name.dark {
+  color: white;
+}
+.extension-description {
+  color: rgb(172, 172, 172);
+}
+button {
+  font-family: 'Noto Sans';
+}
+button:hover {
+  cursor: pointer;
+}
+button:focus {
+  outline: 2px solid hsl(3, 71%, 56%);
+  outline-offset: 2px;
+}
+.on {
+  background-color: hsl(3, 86%, 64%) !important;
+  color: white !important;
+}
